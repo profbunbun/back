@@ -17,7 +17,7 @@ mongoose.set('strictQuery', false);
 
 
 mongoose.connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`
+    process.env.PORT ||  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`
 )
 .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
@@ -30,11 +30,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors())
+app.get("/api/", (req, res) => {
+    res.status(200).send({message: "Welcome"});
+})
 app.use('/movies', moviesRoute)
 app.use('/search', searchRoute)
 app.use('/profile', profileRoutes)
 app.use('/users',userRoute)
 app.use('/ratings', ratingRoutes);
+
 // PORT
 const port = process.env.PORT || 4000
 const server = app.listen(port, () => {

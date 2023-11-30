@@ -16,17 +16,15 @@ const app = express()
 mongoose.set('strictQuery', false);
 
 
-// Connecting mongoDB Database
-mongoose
-    .connect(
-        'mongodb+srv://test:test@cluster0.nfmkma3.mongodb.net/sample_mflix'
-    )
-    .then((x) => {
-        console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-    })
-    .catch((err) => {
-        console.error('Error connecting to mongo', err.reason)
-    })
+mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`
+)
+.then((x) => {
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+})
+.catch((err) => {
+    console.error('Error connecting to mongo', err.reason)
+})
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,10 +36,10 @@ app.use('/profile', profileRoutes)
 app.use('/users',userRoute)
 app.use('/ratings', ratingRoutes);
 // PORT
-// const port = process.env.PORT || 4000
-// const server = app.listen(port, () => {
-//     console.log('Connected to port ' + port)
-// })
+const port = process.env.PORT || 10000
+const server = app.listen(port, () => {
+    console.log('Connected to port ' + port)
+})
 
 // 404 Error
 app.use((req, res, next) => {

@@ -36,7 +36,7 @@ app.use('/profile', profileRoutes)
 app.use('/users',userRoute)
 app.use('/ratings', ratingRoutes);
 // PORT
-const port = process.env.PORT || 10000
+const port = process.env.PORT || 4000
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port)
 })

@@ -17,7 +17,7 @@ mongoose.set('strictQuery', false);
 
 
 mongoose.connect(
-     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`
+    process.env.MONGODB_URI
 )
 .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)

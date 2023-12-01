@@ -1,9 +1,9 @@
 let express = require('express')
 let mongoose = require('mongoose')
 let cors = require('cors')
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
-dotenv.config();
+// dotenv.config();
 // Express Route
 const profileRoutes = require('./routes/profile.route');
 const moviesRoute = require('./routes/movies.route')
@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors())
-app.get("/api/", (req, res) => {
+app.get("/api", (req, res) => {
     res.status(200).send({message: "Welcome"});
 })
 app.use('/movies', moviesRoute)
